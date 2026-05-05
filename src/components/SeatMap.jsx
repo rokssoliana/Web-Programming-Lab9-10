@@ -1,13 +1,18 @@
 import React from 'react';
 
-const SeatMap = ({ selectedSeat, onSelect }) => {
-  // Генеруємо масив з 20 місць
-  const seats = Array.from({ length: 20 }, (_, i) => i + 1);
+const SeatMap = ({ selectedSeat, onSelect, capacity }) => {
+  // Генеруємо масив місць на основі отриманої ємності (capacity)
+  const seats = Array.from({ length: capacity }, (_, i) => i + 1);
 
   return (
     <div style={{ marginTop: '20px' }}>
       <h4>Оберіть місце:</h4>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '10px', maxWidth: '300px' }}>
+      <div style={{ 
+        display: 'grid', 
+        gridTemplateColumns: 'repeat(5, 1fr)', 
+        gap: '10px', 
+        maxWidth: '300px' 
+      }}>
         {seats.map((seat) => (
           <button
             key={seat}

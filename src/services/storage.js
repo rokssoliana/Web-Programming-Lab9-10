@@ -1,10 +1,29 @@
+// Винесемо ключ в константу, щоб не помилитися при повторному використанні
+const BOOKINGS_KEY = 'railway_bookings';
+
+/**
+ * Отримує список бронювань з localStorage
+ */
 export const getBookings = () => {
-  const data = localStorage.getItem('railway_bookings');
-  return data ? JSON.parse(data) : [];
+  try {
+    const data = localStorage.getItem(BOOKINGS_KEY);
+    return data ? JSON.parse(data) : [];
+  } catch (error) {
+    console.error("Помилка при зчитуванні даних з localStorage:", error);
+    return [];
+  }
 };
 
+/**
+ * Додає нове бронювання до існуючого списку
+ */
 export const saveBooking = (booking) => {
-  const bookings = getBookings();
-  bookings.push(booking);
-  localStorage.setItem('railway_bookings', JSON.stringify(bookings));
+  try {
+    const bookings = getBookings();
+    // Використовуємо spread-оператор для чистого додавання даних
+    const updatedBookings = [...bookings, booking];
+    localStorage.setItem(BOOKINGS_KEY, JSON.stringify(updatedBookings));
+  } catch (error) {
+    console.error("Помилка при збереженні бронювання:", error);
+  }
 };
